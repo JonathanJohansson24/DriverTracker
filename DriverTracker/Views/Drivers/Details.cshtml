@@ -1,0 +1,93 @@
+﻿@model Driver
+
+<div class="container">
+    <h1>Driver Details</h1>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">@Model.DriverName</h5>
+            <p class="card-text">
+                <strong>Car Registration:</strong> @Model.CarReg<br />
+                <strong>Responsible Employee:</strong> @Model.ResponsibleEmployee?.Name
+            </p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Events</h5>
+        </div>
+        <div class="card-body">
+            <!-- Date Filter -->
+            <form asp-action="Details" method="get" class="row mb-3">
+                <input type="hidden" name="id" value="@Model.DriverID" />
+                <div class="col">
+                    <label>From Date</label>
+                    <input type="date" name="fromDate" class="form-control" />
+                </div>
+                <div class="col">
+                    <label>To Date</label>
+                    <input type="date" name="toDate" class="form-control" />
+                </div>
+                <div class="col d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                    <a asp-action="Details" asp-route-id="@Model.DriverID"
+                       class="btn btn-secondary ms-2">Clear</a>
+                </div>
+            </form>
+
+            <!-- Events Table -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Income</th>
+                        <th>Expense</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var evt in Model.Events)
+                    {
+                        <tr>
+                            <td>@evt.EventDate.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>@evt.Description</td>
+                            <td class="text-success">
+                                @(evt.AmountIn > 0 ? evt.AmountIn.ToString("C") : "-")
+                            </td>
+                            <td class="text-danger">
+                                @(evt.AmountOut > 0 ? evt.AmountOut.ToString("C") : "-")
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <!-- Summary -->
+            <div class="card mt-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h6>Total Income</h6>
+                            <p class="text-success">@Model.Events.Sum(e => e.AmountIn).ToString("C")</p>
+                        </div>
+                        <div class="col">
+                            <h6>Total Expenses</h6>
+                            <p class="text-danger">@Model.Events.Sum(e => e.AmountOut).ToString("C")</p>
+                        </div>
+                        <div class="col">
+                            <h6>Net Total</h6>
+                            <p class="@(Model.Events.Sum(e => e.AmountIn - e.AmountOut) >= 0 ? "text-success" : "text-danger")">
+                                @((Model.Events.Sum(e => e.AmountIn) - Model.Events.Sum(e => e.AmountOut)).ToString("C"))
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>

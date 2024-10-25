@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DriverTracker</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DriverTracker</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <ul class="navbar-nav mx-auto">
+                            <!-- mx-auto centrerar länkarna -->
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Drivers" asp-action="Index">Drivers</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="DrivingEvents" asp-action="Index">Events</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Employees" asp-action="Index">Employees</a>
+                                </li>
+                            }
+                            else if (User.IsInRole("Employee"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Drivers" asp-action="Index">Drivers</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="DrivingEvents" asp-action="Index">Events</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="DrivingEvents" asp-action="Notifications">Notifications</a>
+                            </li>
+                        </ul>
+
+                        <!-- Användarmenyn till höger -->
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    @User.Identity.Name
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Employees" asp-action="ChangePassword">
+                                            Change Password
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @if (Context.Request.Path.Value?.ToLower().Contains("/account/login") != true)
+            {
+                <div class="content-container">
+                    @RenderBody()
+                </div>
+            }
+            else
+            {
+                @RenderBody()
+            }
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="container text-center">
+            &copy; @DateTime.Now.Year - DriverTracker
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

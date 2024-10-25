@@ -1,0 +1,47 @@
+﻿@model DriverTracker.Models.Driver
+
+<div class="container">
+    <h1 class="mb-4">Create New Driver</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="DriverName" class="control-label">Driver Name</label>
+                    <input asp-for="DriverName" class="form-control" />
+                    <span asp-validation-for="DriverName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="CarReg" class="control-label">Car Registration</label>
+                    <input asp-for="CarReg" class="form-control" />
+                    <span asp-validation-for="CarReg" class="text-danger"></span>
+                </div>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="form-group mb-3">
+                        <label asp-for="ResponsibleEmployeeId" class="control-label">Responsible Employee</label>
+                        <select asp-for="ResponsibleEmployeeId" class="form-select" asp-items="ViewBag.ResponsibleEmployeeId">
+                            <option value="">-- Select Employee --</option>
+                        </select>
+                        <span asp-validation-for="ResponsibleEmployeeId" class="text-danger"></span>
+                    </div>
+                }
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<DriverTracker.Models.Employee>
+
+<div class="container">
+    <h1 class="mb-4">Employees</h1>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <p>
+            <a asp-action="Create" class="btn btn-primary">Create New Employee</a>
+        </p>
+    }
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <th>Role</th>
+                    }
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Email</td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <td>@item.Role</td>
+                        }
+                        <td>
+                            <div class="btn-group">
+                                <a asp-action="Edit" asp-route-id="@item.EmployeeID" class="btn btn-sm btn-warning">Edit</a>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a asp-action="Delete" asp-route-id="@item.EmployeeID" class="btn btn-sm btn-danger">Delete</a>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

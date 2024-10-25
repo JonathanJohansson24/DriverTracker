@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = User.IsInRole("Admin") ? "Admin Dashboard" : "Employee Dashboard";
+}
+
+<div class="dashboard-container">
+    <div class="welcome-section">
+        <h1>Welcome @(User.IsInRole("Admin") ? "Admin" : "Employee")</h1>
+        <p class="subtitle">Here's your overview for today</p>
+    </div>
+
+    <div class="dashboard-grid">
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="dashboard-card">
+                <div class="card-icon drivers-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Drivers</h3>
+                    <p>Manage your drivers and their information</p>
+                    <a asp-controller="Drivers" asp-action="Index" class="btn btn-primary mt-3">View Drivers</a>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-icon events-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Events</h3>
+                    <p>View and manage driving events</p>
+                    <a asp-controller="DrivingEvents" asp-action="Index" class="btn btn-primary mt-3">View Events</a>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-icon employees-icon">
+                    <i class="fas fa-id-card"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Employees</h3>
+                    <p>Manage your employees</p>
+                    <a asp-controller="Employees" asp-action="Index" class="btn btn-primary mt-3">View Employees</a>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="dashboard-card">
+                <div class="card-icon drivers-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="card-content">
+                    <h3>My Drivers</h3>
+                    <p>View and manage your assigned drivers</p>
+                    <a asp-controller="Drivers" asp-action="Index" class="btn btn-primary mt-3">View Drivers</a>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-icon events-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Events</h3>
+                    <p>Track your drivers' events</p>
+                    <a asp-controller="DrivingEvents" asp-action="Index" class="btn btn-primary mt-3">View Events</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,88 @@
+﻿@model IEnumerable<DrivingEvents>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="mb-0">Recent Events (Last 12 Hours)</h2>
+        </div>
+        <div class="card-body">
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info">
+                    No events have been recorded in the last 12 hours.
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Driver</th>
+                                <th>Car Reg</th>
+                                <th>Description</th>
+                                <th>Income</th>
+                                <th>Expense</th>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <th>Responsible Employee</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var evt in Model)
+                            {
+                                <tr>
+                                    <td>@evt.EventDate.ToString("HH:mm")</td>
+                                    <td>@evt.Driver.DriverName</td>
+                                    <td>@evt.Driver.CarReg</td>
+                                    <td>@evt.Description</td>
+                                    <td class="text-success">
+                                        @(evt.AmountIn > 0 ? evt.AmountIn.ToString("C") : "-")
+                                    </td>
+                                    <td class="text-danger">
+                                        @(evt.AmountOut > 0 ? evt.AmountOut.ToString("C") : "-")
+                                    </td>
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <td>@evt.Driver.ResponsibleEmployee.Name</td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h6>Total Income (12h)</h6>
+                                <p class="h4 text-success">
+                                    @Model.Sum(e => e.AmountIn).ToString("C")
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <h6>Total Expenses (12h)</h6>
+                                <p class="h4 text-danger">
+                                    @Model.Sum(e => e.AmountOut).ToString("C")
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <h6>Net Total (12h)</h6>
+                                @{
+                                    var netTotal = Model.Sum(e => e.AmountIn - e.AmountOut);
+                                    var textColor = netTotal >= 0 ? "text-success" : "text-danger";
+                                }
+                                <p class="h4 @textColor">
+                                    @netTotal.ToString("C")
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

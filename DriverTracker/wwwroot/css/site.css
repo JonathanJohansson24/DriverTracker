@@ -1,0 +1,216 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    background-image: url('../Images/lastbil.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Login container styling */
+.login-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 90%;
+    margin: 5rem auto;
+    backdrop-filter: blur(10px);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+    .login-header h1 {
+        color: #2c3e50;
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+.login-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.login-form label {
+    font-weight: 500;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .login-form input:focus {
+        outline: none;
+        border-color: #3498db;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    }
+
+.login-button {
+    width: 100%;
+    padding: 0.75rem;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .login-button:hover {
+        background: #2980b9;
+    }
+
+.back-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #7f8c8d;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+    .back-link:hover {
+        color: #3498db;
+    }
+
+/* Container för övriga sidor med semi-transparent bakgrund */
+.content-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 2rem auto;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.container {
+    flex: 1 0 auto;
+    padding: 20px 15px;
+}
+
+/* Dashboard styling */
+.dashboard-container {
+    padding: 2rem 0;
+}
+
+.welcome-section {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+    .welcome-section h1 {
+        font-size: 2.5rem;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+    }
+
+.subtitle {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.dashboard-card {
+    background: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+.card-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+    .card-icon i {
+        font-size: 2rem;
+        color: white;
+    }
+
+.drivers-icon {
+    background: linear-gradient(45deg, #2980b9, #3498db);
+}
+
+.events-icon {
+    background: linear-gradient(45deg, #27ae60, #2ecc71);
+}
+
+.employees-icon {
+    background: linear-gradient(45deg, #8e44ad, #9b59b6);
+}
+
+.card-content h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.card-content p {
+    color: #7f8c8d;
+    margin-bottom: 1.5rem;
+}
+
+/* Navbar hover effects */
+.nav-link {
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #2980b9;
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+    }
+
+/* Footer styling */
+.footer {
+    flex-shrink: 0;
+    background: #2c3e50;
+    color: white;
+    padding: 1rem 0;
+    margin-top: auto;
+}

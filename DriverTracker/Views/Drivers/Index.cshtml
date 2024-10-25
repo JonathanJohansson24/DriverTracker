@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Driver>
+
+<div class="container">
+    <h1>Drivers</h1>
+
+    <div class="row mb-3">
+        <div class="col-md-8">
+            <form asp-action="Index" method="get" class="d-flex gap-2">
+                <input type="text" name="searchString" class="form-control"
+                       placeholder="Search by name or registration" />
+                <button type="submit" class="btn btn-primary">Search</button>
+                <a asp-action="Index" class="btn btn-secondary">Clear</a>
+            </form>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-action="Create" class="btn btn-success">Add New Driver</a>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Car Registration</th>
+                @if (User.IsInRole("Admin"))
+                {
+                    <th>Responsible Employee</th>
+                }
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var driver in Model)
+            {
+                <tr>
+                    <td>@driver.DriverName</td>
+                    <td>@driver.CarReg</td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td>@driver.ResponsibleEmployee?.Name</td>
+                    }
+                    <td>
+                        <a asp-action="Details" asp-route-id="@driver.DriverID" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="Edit" asp-route-id="@driver.DriverID" class="btn btn-warning btn-sm">Edit</a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Delete" asp-route-id="@driver.DriverID" class="btn btn-danger btn-sm">Delete</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

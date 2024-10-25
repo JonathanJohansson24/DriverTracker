@@ -1,0 +1,117 @@
+﻿@model IEnumerable<DrivingEvents>
+
+<div class="container">
+    <h1>Events</h1>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <form asp-action="Index" method="get" class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">From Date</label>
+                    <input type="date" name="fromDate" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">To Date</label>
+                    <input type="date" name="toDate" class="form-control" />
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary me-2">Filter</button>
+                    <a asp-action="Index" class="btn btn-secondary">Clear</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <a asp-action="Create" class="btn btn-success">Create New Event</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Driver</th>
+                    <th>Car Reg</th>
+                    <th>Description</th>
+                    <th>Income</th>
+                    <th>Expense</th>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <th>Responsible Employee</th>
+                    }
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.EventDate.ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>@item.Driver.DriverName</td>
+                        <td>@item.Driver.CarReg</td>
+                        <td>@item.Description</td>
+                        <td class="text-success">
+                            @(item.AmountIn > 0 ? item.AmountIn.ToString("C") : "-")
+                        </td>
+                        <td class="text-danger">
+                            @(item.AmountOut > 0 ? item.AmountOut.ToString("C") : "-")
+                        </td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <td>@item.Driver.ResponsibleEmployee?.Name</td>
+                        }
+                        <td>
+                            <div class="btn-group">
+                                <a asp-action="Details" asp-route-id="@item.DriverEventId"
+                                   class="btn btn-info btn-sm">Details</a>
+                                <a asp-action="Edit" asp-route-id="@item.DriverEventId"
+                                   class="btn btn-warning btn-sm">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@item.DriverEventId"
+                                   class="btn btn-danger btn-sm">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            No events found for the selected period.
+        </div>
+    }
+    else
+    {
+        <div class="card mt-4">
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-4">
+                        <h6>Total Income</h6>
+                        <p class="h4 text-success">
+                            @Model.Sum(e => e.AmountIn).ToString("C")
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>Total Expenses</h6>
+                        <p class="h4 text-danger">
+                            @Model.Sum(e => e.AmountOut).ToString("C")
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>Net Total</h6>
+                        @{
+                            var netTotal = Model.Sum(e => e.AmountIn - e.AmountOut);
+                            var textColor = netTotal >= 0 ? "text-success" : "text-danger";
+                        }
+                        <p class="h4 @textColor">
+                            @netTotal.ToString("C")
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

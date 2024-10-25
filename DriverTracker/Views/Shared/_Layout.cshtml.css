@@ -1,0 +1,185 @@
+﻿/* Grundläggande layout */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    background-image: url('../Images/lastbil.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+
+/* Navbar styling */
+.navbar {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.navbar-brand {
+    margin-right: 2rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.navbar-nav .nav-item {
+    margin: 0 1rem;
+}
+
+.nav-link {
+    color: #2c3e50 !important;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+    .nav-link:hover {
+        color: #3498db !important;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #3498db;
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+    }
+
+/* Dropdown styling */
+.dropdown-menu {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 0.25rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border: none;
+}
+
+.dropdown-item {
+    padding: 0.5rem 1.5rem;
+    transition: background-color 0.2s ease;
+    color: #2c3e50;
+}
+
+    .dropdown-item:hover {
+        background-color: rgba(52, 152, 219, 0.1);
+        color: #3498db;
+    }
+
+/* Container styling */
+.container {
+    z-index: 1;
+    flex: 1 0 auto;
+    padding: 0 15px;
+}
+
+main {
+    padding: 20px 0;
+}
+
+/* Content container för sidor */
+.content-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 2rem auto;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+/* Footer styling */
+.footer {
+    background-color: rgba(44, 62, 80, 0.9) !important;
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 1rem 0;
+    margin-top: auto;
+    font-size: 0.9rem;
+}
+
+/* Notifikation badge */
+.badge {
+    position: relative;
+    top: -8px;
+    margin-left: 2px;
+    font-size: 0.75rem;
+}
+
+/* Button styling */
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #3498db;
+    border-color: #3498db;
+}
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+        border-color: #2980b9;
+        transform: translateY(-1px);
+    }
+
+/* Form controls */
+.form-control {
+    border-radius: 0.25rem;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+    .form-control:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+    }
+
+/* Responsiv design */
+@media (max-width: 576px) {
+    .navbar-nav {
+        text-align: center;
+    }
+
+        .navbar-nav .nav-item {
+            margin: 0.5rem 0;
+        }
+
+    .content-container {
+        padding: 1rem;
+        margin: 1rem auto;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Utility classes */
+.box-shadow {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}

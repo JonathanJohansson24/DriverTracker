@@ -1,0 +1,56 @@
+﻿@model DriverTracker.Models.DrivingEvents
+
+<div class="container">
+    <h1 class="mb-4">Create New Event</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="DriverId" class="control-label">Driver</label>
+                    <select asp-for="DriverId" class="form-select" asp-items="ViewBag.DriverId">
+                        <option value="">-- Select Driver --</option>
+                    </select>
+                    <span asp-validation-for="DriverId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="EventDate" class="control-label">Date</label>
+                    <input asp-for="EventDate" class="form-control" type="datetime-local" />
+                    <span asp-validation-for="EventDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="AmountOut" class="control-label">Expense Amount</label>
+                    <input asp-for="AmountOut" class="form-control" type="number" step="0.01" />
+                    <span asp-validation-for="AmountOut" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="AmountIn" class="control-label">Income Amount</label>
+                    <input asp-for="AmountIn" class="form-control" type="number" step="0.01" />
+                    <span asp-validation-for="AmountIn" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

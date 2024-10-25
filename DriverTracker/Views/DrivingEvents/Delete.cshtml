@@ -1,0 +1,39 @@
+﻿@model DriverTracker.Models.DrivingEvents
+
+<div class="container">
+    <h1 class="mb-4">Delete Event</h1>
+
+    <div class="alert alert-danger">
+        <h4>Are you sure you want to delete this event?</h4>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Driver</dt>
+                <dd class="col-sm-9">@Model.Driver.DriverName</dd>
+
+                <dt class="col-sm-3">Car Registration</dt>
+                <dd class="col-sm-9">@Model.Driver.CarReg</dd>
+
+                <dt class="col-sm-3">Description</dt>
+                <dd class="col-sm-9">@Model.Description</dd>
+
+                <dt class="col-sm-3">Date</dt>
+                <dd class="col-sm-9">@Model.EventDate.ToString("g")</dd>
+
+                <dt class="col-sm-3">Expense Amount</dt>
+                <dd class="col-sm-9 text-danger">@(Model.AmountOut > 0 ? Model.AmountOut.ToString("C") : "-")</dd>
+
+                <dt class="col-sm-3">Income Amount</dt>
+                <dd class="col-sm-9 text-success">@(Model.AmountIn > 0 ? Model.AmountIn.ToString("C") : "-")</dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="DriverEventId" />
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </form>
+        </div>
+    </div>
+</div>
